@@ -3,6 +3,8 @@
 
 // Our project headers
 #include "ProcessCommandLine.hpp"
+#include "CipherType.hpp"
+#include "CipherMode.hpp"
 
 bool processCommandLine(const std::vector<std::string>& args,
                         ProgramSettings& settings)
@@ -78,6 +80,29 @@ bool processCommandLine(const std::vector<std::string>& args,
     }
     else if ( args[i] == "--decrypt" ) {
             settings.cipherMode = CipherMode::Decrypt;
+    }
+    
+    else if (args[i] == "--cipher") {
+    if (i == nArgs-1) {
+      std::cerr << "[error] --cipher requires a cipher selection argument" << std::endl;
+      processStatus = false;
+      break;
+    }
+    else {
+    i++;
+    if (args[i] == "caesar") {
+      settings.cipherType = CipherType::Caesar;
+    }
+    else if (args[i] == "playfair") {
+      settings.cipherType = CipherType::Playfair;
+    }
+    else {
+      std::cerr << "[error] --cipher requires a cipher selection argument" << std::endl;
+      processStatus = false;
+      break;
+
+    }       
+    }
     }
     else {
       // Have encoutered an unknown flag, output an error message, set the flag

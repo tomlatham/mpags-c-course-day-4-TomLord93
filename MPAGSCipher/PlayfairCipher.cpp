@@ -186,12 +186,13 @@ std::string PlayfairCipher::applyCipher( const std::string& inputText, const Cip
 
 	//If repeated chars in a diagraph add an X or Q if XX
 	
-/*	std::vector<char> inputTextvec;
-	auto iter = inputTextvec.begin();	
-	for ( char h : inputText_ ) {
-	std::cout<<inputText_<<std::endl;
-	if (h++ == h){
-	h+= 'X' + h
+	std::vector<char> inputTextvec(inputText_.begin(), inputText_.end());
+	for (auto iter = std::begin(inputTextvec); iter != inputTextvec.end(); iter++){
+	std::cout << *iter << std::endl;
+	}
+/*	for ( char h : inputText_ ) {
+	if (h == h){
+	h+= 'X' + h;
 	}
 	}
 */

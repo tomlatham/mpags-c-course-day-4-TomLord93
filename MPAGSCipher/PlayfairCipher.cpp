@@ -97,7 +97,7 @@ void PlayfairCipher::setKey(const std::string& key)
 	   std::cout<<thing.first<< ": "<<thing.second.first<<":"<<thing.second.second<<std::endl;
 	}
 	
-	using Int2CharMap = std::map<std::pair<size_t, size_t>>;
+	using Int2CharMap = std::map<std::pair<size_t, size_t>, char>;
 	Int2CharMap mymap2;
 	
 
@@ -170,7 +170,7 @@ std::string PlayfairCipher::applyCipher( const std::string& inputText, const Cip
 	std::cout << "Encrypting" <<std::endl;
 	}
 	
-	inputText_ = inputText;
+	std::string inputText_ {inputText};
 	// Change J -> I
 	auto jtoi = [] (char d) {
 	if (d == 'J')
@@ -189,10 +189,12 @@ std::string PlayfairCipher::applyCipher( const std::string& inputText, const Cip
 /*	std::vector<char> inputTextvec;
 	auto iter = inputTextvec.begin();	
 	for ( char h : inputText_ ) {
+	std::cout<<inputText_<<std::endl;
 	if (h++ == h){
 	h+= 'X' + h
 	}
-*/	
+	}
+*/
 	//If the size of input is odd, add a trailing Z
 
 	//Loop over the input Digraphs

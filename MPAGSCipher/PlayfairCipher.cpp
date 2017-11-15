@@ -5,6 +5,9 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <iterator>
+#include <map>
+#include <utility>
 // Out project headers
 #include "PlayfairCipher.hpp"
 
@@ -66,8 +69,97 @@ void PlayfairCipher::setKey(const std::string& key)
 	std::cout << key_ << std::endl;
 
 	//Store the coords of each letter
+	std::string::iterator iter3;
+// = key_.begin();
+	using Char2IntMap = std::map<char, std::pair <size_t, size_t>>;
+	Char2IntMap mymap;
 
+	int x{0};
+	int y{0};
+	for (char g : key_) {
+	std::pair <char, std::pair<size_t, size_t>> thing (g, std::make_pair(x,y));
+
+	mymap.insert(thing);
+	if(x==4){
+	y++;
+	x=0;
+	}
+	else if(x==4 && y==4){
+	break;
+	}
+	else{
+	x++;
+	}
+	}
+	
+	for (auto thing : mymap)
+	{
+	   std::cout<<thing.first<< ": "<<thing.second.first<<":"<<thing.second.second<<std::endl;
+	}
+	
+	using Int2CharMap = std::map<std::pair<size_t, size_t>>;
+	Int2CharMap mymap2;
+	
+
+
+
+
+
+/*
+	for (char g : key_) {
+	auto pos{key_.find(g)};
+	std::pair< std::string, int > p0{g, pos};
+	std::cout << g << std::endl;
+	std::cout << p_pos.first << p_pos.second << std::endl;
+//	mymap.insert(p_pos);
+	}
+*//*	
+	auto assigncoords = [&] (char f) {
+//	int position{iter3 - key_.begin()};
+	
+
+// 	long int position{*iter3 - key_.begin()};
+	long int position = std::distance(key_.begin(), iter3);
+	
+	std::cout << f << std::endl;
+	std::cout << position << std::endl;
+
+
+	auto p_position{std::make_pair(f, position)};
+//	std::pair< std::string,long int >  p0{f, position};
+
+	mymap.insert( p_position );
+	
+//	}
+	};
+
+	for (auto iter4 = std::begin(key_); iter4!= key_.end(); ++iter4)
+	{
+	(key_.begin(), key_.end(), assigncoords);
+	}
+	std::cout << position << std::endl;
+*/
+/*	using Str2FltMap = std::map<std::string, float>; ///< Create map label
+	Str2FltMap mymap; ///< Create map instance
+	std::pair<std::string, float> p0{"A", 1.1}; ///< Create coordinate for letter
+	auto p1 = std::make_pair("B",2);
+	Str2FltMap::value_type p2{"C",3};
+	mymap.insert(p0); ///< Insert coordinates into map
+	mymap.insert(p1);
+	mymap.insert(p2);
+	auto iter3 = mymap.find("A"); ///< Find letter with iter
+	std::cout<<(*iter3).first << ": "<<(*iter3).second<<std::endl; ///< print to iter something
+	for (auto p : mymap)
+	{
+	   std::cout<<p.first<< ": "<<p.second<<std::endl;
+	}
+	
+	
+*/	
+	
 	//STore the playfair cipher key map
+
+	
 }
 
 std::string PlayfairCipher::applyCipher( const std::string& inputText, const CipherMode cipherMode ) const
@@ -77,11 +169,30 @@ std::string PlayfairCipher::applyCipher( const std::string& inputText, const Cip
 	if (cipherMode == CipherMode::Encrypt) {
 	std::cout << "Encrypting" <<std::endl;
 	}
-
+	
+	inputText_ = inputText;
 	// Change J -> I
+	auto jtoi = [] (char d) {
+	if (d == 'J')
+	{d = 'I';
+	return d;
+	}
+	else
+		return d;
+	};
+	std::transform(inputText_.begin(), inputText_.end(), inputText_.begin(), jtoi);
+	std::cout << inputText_ << std::endl; 
+
 
 	//If repeated chars in a diagraph add an X or Q if XX
-
+	
+/*	std::vector<char> inputTextvec;
+	auto iter = inputTextvec.begin();	
+	for ( char h : inputText_ ) {
+	if (h++ == h){
+	h+= 'X' + h
+	}
+*/	
 	//If the size of input is odd, add a trailing Z
 
 	//Loop over the input Digraphs

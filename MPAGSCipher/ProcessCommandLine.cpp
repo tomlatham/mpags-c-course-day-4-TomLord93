@@ -64,7 +64,7 @@ bool processCommandLine(const std::vector<std::string>& args,
       // Handle cipher key option
       // Next element is the key unless -k is the last argument
       if (i == nArgs-1) {
-        std::cerr << "[error] -k requires a positive integer argument" << std::endl;
+        std::cerr << "[error] -k requires a positive integer argument or alpha-string" << std::endl;
         // Set the flag to indicate the error and terminate the loop
         processStatus = false;
         break;
@@ -84,7 +84,7 @@ bool processCommandLine(const std::vector<std::string>& args,
     
     else if (args[i] == "--cipher") {
     if (i == nArgs-1) {
-      std::cerr << "[error] --cipher requires a cipher selection argument" << std::endl;
+      std::cerr << "[error] --cipher requires a cipher selection argument. This currently supports caesar or playfair input only" << std::endl;
       processStatus = false;
       break;
     }

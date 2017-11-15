@@ -47,7 +47,8 @@ int main(int argc, char* argv[])
       << "  -k KEY           Specify the cipher KEY\n"
       << "                   A null key, i.e. no encryption, is used if not supplied\n\n"
       << "  --encrypt        Will use the cipher to encrypt the input text (default behaviour)\n\n"
-      << "  --decrypt        Will use the cipher to decrypt the input text\n\n";
+      << "  --decrypt        Will use the cipher to decrypt the input text\n\n"
+      << "  --cipher         Specify the cipher type. This currently supports playfair or caesar\n\n";
     // Help requires no further action, so return from main,
     // with 0 used to indicate success
     return 0;

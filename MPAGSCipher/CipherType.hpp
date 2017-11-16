@@ -8,7 +8,7 @@
 
 /**
  * \enum CipherType
- * \brief Enumeration to define the modes in which the cipher can operate
+ * \brief Enumeration to define the types of cipher that can be used
  */
 enum class CipherType {
   Caesar, ///< Apply Caesar cipher

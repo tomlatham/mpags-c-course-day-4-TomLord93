@@ -3,7 +3,7 @@
 
 // Standard library includes
 #include <string>
-#include <vector>
+#include <map>
 
 // Our project headers
 #include "CipherMode.hpp"
@@ -34,17 +34,26 @@ class PlayfairCipher {
      * \return the result of applying the cipher to the input text
      */
     std::string applyCipher( const std::string& inputText, const CipherMode cipherMode ) const;
+
+    /**
+     * Set the key to be used for the encryption/decryption
+     *
+     * \param key the key to use in the cipher
+     */
     void setKey(const std::string& key); 
 
   private:
-    /// The alphabet - used to determine the cipher character given the plain character and the key
-    const std::string alphabet_ = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
-
-    /// The size of the alphabet
-    const std::vector<char>::size_type alphabetSize_ = alphabet_.size();
-
-    /// The cipher key, essentially a constant shift to be applied
+    /// The cipher key
     std::string key_ = "";
+
+    /// Type definition for the coordinates in the 5x5 table
+    using PlayfairCoords = std::pair<std::string::size_type,std::string::size_type>;
+
+    /// Lookup table to go from the character to the coordinates
+    std::map<char,PlayfairCoords> charLookup_;
+
+    /// Lookup table to go from the coordinates to the character
+    std::map<PlayfairCoords,char> coordLookup_;
 };
 
 #endif

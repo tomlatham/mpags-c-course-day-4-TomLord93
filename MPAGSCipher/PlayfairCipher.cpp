@@ -20,15 +20,17 @@ void PlayfairCipher::setKey(const std::string& key)
 {
 	//store the original key
 	key_ = key;
+	std::cout << key_ << std::endl;
 
 	//Append the alphabet
-	key_ += alphabet_;
-//	std::cout << key_ << std::endl;
+	key_ += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	std::cout << key_ << std::endl;
 
 	//Make sure the key is upper case
 	//std::string::iterator key_iter = key_.begin();
 	std::transform(key_.begin(), key_.end(), key_.begin(), ::toupper);
-//	std::cout << key_ << std::endl;
+	std::cout << key_ << std::endl;
+
 	//Remove non-alpha characters
 	auto isntalpha = [] (char c) {
 	if (std::isalpha(c)) 
@@ -40,6 +42,7 @@ void PlayfairCipher::setKey(const std::string& key)
 	std::cout << key_ << std::endl;
 	key_.erase(iter,key_.end());
 	std::cout << key_ << std::endl;
+
 	//Change J -> I
 	auto jtoi = [] (char d) {
 	if (d == 'J')
@@ -69,17 +72,12 @@ void PlayfairCipher::setKey(const std::string& key)
 	std::cout << key_ << std::endl;
 
 	//Store the coords of each letter
-	std::string::iterator iter3;
-// = key_.begin();
-	using Char2IntMap = std::map<char, std::pair <size_t, size_t>>;
-	Char2IntMap mymap;
-
 	int x{0};
 	int y{0};
 	for (char g : key_) {
-	std::pair <char, std::pair<size_t, size_t>> thing (g, std::make_pair(x,y));
-
-	mymap.insert(thing);
+	PlayfairCoords coord {std::make_pair(x,y)};
+	charLookup_.insert(std::make_pair(g,coord));
+	coordLookup_.insert(std::make_pair(coord,g));
 	if(x==4){
 	y++;
 	x=0;
@@ -92,13 +90,10 @@ void PlayfairCipher::setKey(const std::string& key)
 	}
 	}
 	
-	for (auto thing : mymap)
+	for (auto thing : charLookup_)
 	{
 	   std::cout<<thing.first<< ": "<<thing.second.first<<":"<<thing.second.second<<std::endl;
 	}
-	
-	using Int2CharMap = std::map<std::pair<size_t, size_t>, char>;
-	Int2CharMap mymap2;
 	
 
 

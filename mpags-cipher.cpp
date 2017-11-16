@@ -125,7 +125,7 @@ int main(int argc, char* argv[])
     outputText = cipher.applyCipher( inputText, settings.cipherMode );
   } else {
     PlayfairCipher cipher{ settings.cipherKey };
-    cipher.applyCipher( inputText, settings.cipherMode);
+    outputText = cipher.applyCipher( inputText, settings.cipherMode);
   }
   // Output the transliterated text
   if (!settings.outputFile.empty()) {
